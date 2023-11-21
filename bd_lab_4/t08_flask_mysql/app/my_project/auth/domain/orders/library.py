@@ -10,9 +10,10 @@ class Library(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     purchase_date = db.Column(db.Date)
     playtime = db.Column(db.DateTime)
-    user_userid = db.Column(db.Integer, nullable=False)
-    game_gameid = db.Column(db.Integer, nullable=False, index=True)
-    transaction_id = db.Column(db.Integer, nullable=False)
+    user_userid = db.Column(db.Integer, db.ForeignKey('user_userid'))
+    game_gameid = db.Column(db.Integer, db.ForeignKey('game_gameid'))
+    transaction_id = db.Column(db.Integer, db.ForeignKey('transaction_id'))
+
 
     # Relationship 1:1 with Transaction
     transaction = db.relationship('Transaction', back_populates='library')

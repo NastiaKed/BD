@@ -11,8 +11,8 @@ class Review(db.Model):
     rating = db.Column(db.Integer)
     review_text = db.Column(db.String(100))
     timestamp = db.Column(db.DateTime)
-    user_userid = db.Column(db.Integer, nullable=False, index=True)
-    game_gameid = db.Column(db.Integer, nullable=False)
+    user_userid = db.Column(db.Integer, db.ForeignKey('user_userid'))
+    game_gameid = db.Column(db.Integer, db.ForeignKey('game_gameid'))
 
 
     def __repr__(self) -> str:

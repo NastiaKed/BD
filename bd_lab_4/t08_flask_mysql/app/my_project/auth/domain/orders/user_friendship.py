@@ -8,8 +8,8 @@ from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
 class UserFriendship(db.Model):
     __tablename__ = 'user_friendship'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False, index=True)
-    user_2_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_id'))
+    user_2_id = db.Column(db.Integer, db.ForeignKey('user_2_id'))
 
 
     def __repr__(self) -> str:

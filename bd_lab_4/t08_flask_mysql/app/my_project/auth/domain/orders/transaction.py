@@ -10,6 +10,7 @@ class Transaction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Integer, index=True)
     timestamp = db.Column(db.DateTime)
+    child = db.relationship('Library', uselist=False, backref='Transaction')
 
 
     def __repr__(self) -> str:

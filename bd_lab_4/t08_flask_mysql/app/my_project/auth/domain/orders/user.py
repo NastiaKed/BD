@@ -14,6 +14,7 @@ class User(db.Model):
     dateOfBirth = db.Column(db.Date)
     profilePicthure = db.Column(db.Integer)
     user_friendship_id = db.Column(db.Integer, nullable=False)
+    children = db.relationship('UserChat', 'Library', 'UserFriendship', 'Review', backref='user')
 
     # Relationship 1:M with Library
     library = db.relationship('Library', back_populates='user', cascade='all, delete-orphan')

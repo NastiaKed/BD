@@ -9,7 +9,7 @@ class UserChat(db.Model):
     __tablename__ = 'user_chat'
     user_userid = db.Column(db.Integer, nullable=False)
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, nullable=False, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user_id'))
 
     # Relationship 1:M with Message
     message = db.relationship('Message', back_populates='user_chat', cascade='all, delete-orphan')

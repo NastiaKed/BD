@@ -10,7 +10,7 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime)
-    user_chat_id = db.Column(db.Integer, nullable=False, index=True)
+    user_chat_id = db.Column(db.Integer, db.ForeignKey('user_chat_id'))
 
     def __repr__(self) -> str:
         return f"Message({self.id}, '{self.content}', {self.timestamp}, {self.user_userid},)"

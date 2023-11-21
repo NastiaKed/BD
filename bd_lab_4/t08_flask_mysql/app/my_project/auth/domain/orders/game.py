@@ -15,6 +15,7 @@ class Game(db.Model):
     publisher = db.Column(db.String(50))
     genre = db.Column(db.String(40))
     price = db.Column(db.Integer, index=True)
+    children = db.relationship('Library','Review', backref='game')
 
     # Relationship 1:M with Library
     library = db.relationship('Library', back_populates='game', cascade='all, delete-orphan')
