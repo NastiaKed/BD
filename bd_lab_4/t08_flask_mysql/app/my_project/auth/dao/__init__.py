@@ -1,12 +1,19 @@
-"""
-2022
-apavelchak@gmail.com
-© Andrii Pavelchak
-"""
-
 # orders DB
-from .orders.client_dao import ClientDAO
-from .orders.client_type_dao import ClientTypeDAO
+from .orders.game_dao import GameDAO
+from .orders.library_dao import LibraryDAO
+from .orders.message_dao import MessageDAO
+from .orders.review_dao import ReviewDAO
+from .orders.transaction_dao import TransactionDAO
+from .orders.user_dao import UserDAO
+from .orders.user_chat_dao import UserChatDAO
+from .orders.user_friendship_dao import UserFriendshipDAO
 
-client_dao = ClientDAO()
-client_type_dao = ClientTypeDAO()
+game_dao = GameDAO()
+library_dao = LibraryDAO()
+message_dao = MessageDAO()
+review_dao = ReviewDAO()
+transaction_dao = TransactionDAO()
+user_dao = UserDAO()
+user_chat_dao = UserChatDAO()
+user_friendship_dao = UserFriendshipDAO()
+

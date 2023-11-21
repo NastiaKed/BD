@@ -1,11 +1,5 @@
-"""
-2022
-apavelchak@gmail.com
-© Andrii Pavelchak
-"""
-
-from .orders.client_service import ClientService
-from .orders.client_type_service import ClientTypeService
+from .orders.game_service import ClientService
+from .orders.library_service import ClientTypeService
 
 client_service = ClientService()
 client_type_service = ClientTypeService()
