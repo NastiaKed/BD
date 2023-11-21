@@ -11,6 +11,8 @@ class UserChat(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False, index=True)
 
+    # Relationship 1:M with Message
+    message = db.relationship('Message', back_populates='user_chat', cascade='all, delete-orphan')
 
     def __repr__(self) -> str:
         return f"UserChat({self.id}, {self.user_id}, {self.user_userid})"

@@ -14,6 +14,9 @@ class Library(db.Model):
     game_gameid = db.Column(db.Integer, nullable=False, index=True)
     transaction_id = db.Column(db.Integer, nullable=False)
 
+    # Relationship 1:1 with Transaction
+    transaction = db.relationship('Transaction', back_populates='library')
+
     def __repr__(self) -> str:
         return (f"Library({self.id}, {self.purchase_date}, {self.playtime}, {self.user_userid},)"
                 f"'{self.game_gameid}, {self.transaction_id})")

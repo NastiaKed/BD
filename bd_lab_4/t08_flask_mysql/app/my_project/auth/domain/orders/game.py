@@ -16,6 +16,10 @@ class Game(db.Model):
     genre = db.Column(db.String(40))
     price = db.Column(db.Integer, index=True)
 
+    # Relationship 1:M with Library
+    library = db.relationship('Library', back_populates='game', cascade='all, delete-orphan')
+    # Relationship 1:M with Review
+    review = db.relationship('Review', back_populates='game', cascade='all, delete-orphan')
 
     def __repr__(self) -> str:
         return (f"Game({self.id}, '{self.title}', '{self.description}', {self.release_date})"
