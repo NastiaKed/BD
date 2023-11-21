@@ -6,18 +6,21 @@ from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
 
 
 class Review(db.Model):
-    __tablename__ = 'review'
-    id = db.Column(db.Integer, primary_key=True)
-    rating = db.Column(db.Integer)
-    review_text = db.Column(db.String(100))
-    timestamp = db.Column(db.DateTime)
-    user_userid = db.Column(db.Integer, db.ForeignKey('user_userid'))
-    game_gameid = db.Column(db.Integer, db.ForeignKey('game_gameid'))
+    __tablename__ = 'Review'
+    id: int = db.Column(db.Integer, primary_key=True)
+    rating: int = db.Column(db.Integer)
+    reviewText: str = db.Column(db.String(100))
+    timestamp: db.DateTime = db.Column(db.DateTime)
+    user_UserID: int = db.Column(db.Integer, db.ForeignKey('user.id'))
+    game_GameID: int = db.Column(db.Integer, db.ForeignKey('game.id'))
 
+    # # Relationship M:1 with Game
+    # game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
+    # game = db.relationship('Game', back_populates='review')
 
     def __repr__(self) -> str:
-        return (f"Game({self.id}, {self.rating}, '{self.review_text}', {self.timestamp})"
-                f"{self.user_userid}, {self.game_gameid})")
+        return (f"Review({self.id}, {self.rating}, '{self.reviewText}', {self.timestamp}, "
+                f"{self.user_UserID}, {self.game_GameID})")
 
     def put_into_dto(self) -> Dict[str, Any]:
         """
@@ -26,10 +29,10 @@ class Review(db.Model):
         return {
             "id": self.id,
             "rating": self.rating,
-            "review_text": self.review_text,
+            "reviewText": self.reviewText,
             "timestamp": self.timestamp,
-            "user_userid": self.user_userid,
-            "game_gameid": self.game_gameid,
+            "user_UserID": self.user_UserID,
+            "game_GameID": self.game_GameID,
         }
 
     @staticmethod
@@ -41,9 +44,9 @@ class Review(db.Model):
         """
         obj = Review(
             rating=dto_dict.get("rating"),
-            review_text=dto_dict.get("review_text"),
+            reviewText=dto_dict.get("reviewText"),
             timestamp=dto_dict.get("timestamp"),
-            user_userid=dto_dict.get("user_userid"),
-            game_gameid=dto_dict.get("game_gameid")
+            user_UserID=dto_dict.get("user_UserID"),
+            game_GameID=dto_dict.get("game_GameID")
         )
         return obj

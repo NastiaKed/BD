@@ -7,24 +7,20 @@ from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
 
 class Game(db.Model):
     __tablename__ = 'game'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(80), index=True)
-    description = db.Column(db.String(200))
-    release_date = db.Column(db.Date)
-    developer = db.Column(db.String(100))
-    publisher = db.Column(db.String(50))
-    genre = db.Column(db.String(40))
-    price = db.Column(db.Integer, index=True)
-    children = db.relationship('Library','Review', backref='game')
-
-    # Relationship 1:M with Library
-    library = db.relationship('Library', back_populates='game', cascade='all, delete-orphan')
-    # Relationship 1:M with Review
-    review = db.relationship('Review', back_populates='game', cascade='all, delete-orphan')
+    id: int = db.Column(db.Integer, primary_key=True)
+    title: str = db.Column(db.String(80), index=True)
+    description: str = db.Column(db.String(200))
+    releaseDate: db.Date = db.Column(db.Date)
+    developer: str = db.Column(db.String(100))
+    publisher: str = db.Column(db.String(50))
+    genre: str = db.Column(db.String(40))
+    price: int = db.Column(db.Integer, index=True)
 
     def __repr__(self) -> str:
-        return (f"Game({self.id}, '{self.title}', '{self.description}', {self.release_date})"
-                f"'{self.developer}', {self.publisher}, '{self.genre}', {self.price})")
+        return (
+            f"Game({self.id}, '{self.title}', '{self.description}', {self.releaseDate}, "
+            f"'{self.developer}', '{self.publisher}', '{self.genre}', {self.price})"
+        )
 
     def put_into_dto(self) -> Dict[str, Any]:
         """
@@ -34,7 +30,7 @@ class Game(db.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
-            "release_date": self.release_date,
+            "releaseDate": self.releaseDate,
             "developer": self.developer,
             "publisher": self.publisher,
             "genre": self.genre,
@@ -51,7 +47,7 @@ class Game(db.Model):
         obj = Game(
             title=dto_dict.get("title"),
             description=dto_dict.get("description"),
-            release_date=dto_dict.get("release_date"),
+            releaseDate=dto_dict.get("releaseDate"),
             developer=dto_dict.get("developer"),
             publisher=dto_dict.get("publisher"),
             genre=dto_dict.get("genre"),

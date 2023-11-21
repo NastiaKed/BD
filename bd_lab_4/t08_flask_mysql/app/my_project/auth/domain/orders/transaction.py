@@ -6,11 +6,10 @@ from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
 
 
 class Transaction(db.Model):
-    __tablename__ = 'transaction'
+    __tablename__ = 'Transaction'
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Integer, index=True)
     timestamp = db.Column(db.DateTime)
-    child = db.relationship('Library', uselist=False, backref='Transaction')
 
 
     def __repr__(self) -> str:

@@ -6,21 +6,24 @@ from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
 
 
 class Library(db.Model):
-    __tablename__ = 'library'
-    id = db.Column(db.Integer, primary_key=True)
-    purchase_date = db.Column(db.Date)
-    playtime = db.Column(db.DateTime)
-    user_userid = db.Column(db.Integer, db.ForeignKey('user_userid'))
-    game_gameid = db.Column(db.Integer, db.ForeignKey('game_gameid'))
-    transaction_id = db.Column(db.Integer, db.ForeignKey('transaction_id'))
+    __tablename__ = 'Library'
+    id: int = db.Column(db.Integer, primary_key=True)
+    purchaseDate: db.Date = db.Column(db.Date)
+    playtime: db.DateTime = db.Column(db.DateTime)
+    user_UserID: int = db.Column(db.Integer, db.ForeignKey('user.id'))
+    game_GameID: int = db.Column(db.Integer, db.ForeignKey('game.id'))
+    Transaction_id: int = db.Column(db.Integer, db.ForeignKey('Transaction.id'))
 
+    # game_id = db.Column(db.Integer, db.ForeignKey('game.id'))
+    # user_id  = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    # game = db.relationship('Game', back_populates='library')
     # Relationship 1:1 with Transaction
-    transaction = db.relationship('Transaction', back_populates='library')
+    # transaction = db.relationship('Transaction', back_populates='library')
 
     def __repr__(self) -> str:
-        return (f"Library({self.id}, {self.purchase_date}, {self.playtime}, {self.user_userid},)"
-                f"'{self.game_gameid}, {self.transaction_id})")
+        return (f"Library({self.id}, {self.purchaseDate}, {self.playtime}, {self.user_UserID}, "
+                f"{self.game_GameID}, {self.Transaction_id})")
 
     def put_into_dto(self) -> Dict[str, Any]:
         """
@@ -28,11 +31,11 @@ class Library(db.Model):
         """
         return {
             "id": self.id,
-            "purchase_date": self.purchase_date,
+            "purchaseDate": self.purchaseDate,
             "playtime": self.playtime,
-            "user_userid": self.user_userid,
-            "game_gameid": self.game_gameid,
-            "transaction_id": self.transaction_id
+            "user_UserID": self.user_UserID,
+            "game_GameID": self.game_GameID,
+            "Transaction_id": self.Transaction_id
         }
 
     @staticmethod
@@ -43,10 +46,10 @@ class Library(db.Model):
         :return: Domain object
         """
         obj = Library(
-            purchase_date=dto_dict.get("purchase_date"),
+            purchaseDate=dto_dict.get("purchaseDate"),
             playtime=dto_dict.get("playtime"),
-            user_userid=dto_dict.get("user_userid"),
-            game_gameid=dto_dict.get("game_gameid"),
-            transaction_id=dto_dict.get("transaction_id")
+            user_UserID=dto_dict.get("user_UserID"),
+            game_GameID=dto_dict.get("game_GameID"),
+            Transaction_id=dto_dict.get("Transaction_id")
         )
         return obj

@@ -69,3 +69,13 @@ def delete_library(library_id: int) -> Response:
     """
     library_controller.delete(library_id)
     return make_response("Library deleted", HTTPStatus.OK)
+
+@library_bp.get('/user/<int:user_id>')
+def get_libraries_by_user_id(user_id: int) -> Response:
+    """
+    Gets libraries associated with a specific user by user ID.
+    :param user_id: ID of the user
+    :return: Response object
+    """
+    libraries = library_controller.find_libraries_by_user_id(user_id)
+    return make_response(jsonify(libraries), HTTPStatus.OK)

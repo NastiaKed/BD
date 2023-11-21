@@ -14,7 +14,7 @@ class LibraryDAO(GeneralDAO):
         return self._session.query(Library).filter(Library.playtime == playtime).order_by(Library.playtime).all()
 
     def find_by_user_userid(self, user_userid: int) -> List[object]:
-        return self._session.query(Library).filter(Library.user_userid == user_userid).order_by(Library.user_userid).all()
+        return self._session.query(Library).filter(Library.user_UserID == user_userid).all()
 
     def find_by_game_gameid(self, game_gameid: int) -> List[object]:
         return self._session.query(Library).filter(Library.game_gameid == game_gameid).order_by(Library.game_gameid).all()

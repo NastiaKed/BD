@@ -14,16 +14,15 @@ class User(db.Model):
     dateOfBirth = db.Column(db.Date)
     profilePicthure = db.Column(db.Integer)
     user_friendship_id = db.Column(db.Integer, nullable=False)
-    children = db.relationship('UserChat', 'Library', 'UserFriendship', 'Review', backref='user')
 
-    # Relationship 1:M with Library
-    library = db.relationship('Library', back_populates='user', cascade='all, delete-orphan')
-    # Relationship 1:M with Review
-    review = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
-    # Relationship 1:M with UserChat
-    user_chat = db.relationship('UserChat', back_populates='user', cascade='all, delete-orphan')
-    # Relationship 1:M with UserFriendship
-    user_friendship = db.relationship('UserFriendship', back_populates='user', cascade='all, delete-orphan')
+    # # Relationship 1:M with Library
+    # library = db.relationship('Library', back_populates='user', cascade='all, delete-orphan')
+    # # Relationship 1:M with Review
+    # review = db.relationship('Review', back_populates='user', cascade='all, delete-orphan')
+    # # Relationship 1:M with UserChat
+    # user_chat = db.relationship('UserChat', back_populates='user', cascade='all, delete-orphan')
+    # # Relationship 1:M with UserFriendship
+    # user_friendship = db.relationship('UserFriendship', back_populates='user', cascade='all, delete-orphan')
 
     def __repr__(self) -> str:
         return (f"User({self.id}, '{self.userName}', '{self.email}', '{self.password}')"

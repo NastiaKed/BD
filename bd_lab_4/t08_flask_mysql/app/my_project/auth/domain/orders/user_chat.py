@@ -7,15 +7,15 @@ from t08_flask_mysql.app.my_project.auth.domain.i_dto import IDto
 
 class UserChat(db.Model):
     __tablename__ = 'user_chat'
-    user_userid = db.Column(db.Integer, nullable=False)
+    user_UserID = db.Column(db.Integer, db.ForeignKey('user.id'))
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user_id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     # Relationship 1:M with Message
-    message = db.relationship('Message', back_populates='user_chat', cascade='all, delete-orphan')
+    # message = db.relationship('Message', back_populates='user_chat', cascade='all, delete-orphan')
 
     def __repr__(self) -> str:
-        return f"UserChat({self.id}, {self.user_id}, {self.user_userid})"
+        return f"UserChat({self.id}, {self.user_id}, {self.user_UserID})"
 
     def put_into_dto(self) -> Dict[str, Any]:
         """
@@ -24,7 +24,7 @@ class UserChat(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "user_userid": self.user_userid,
+            "user_UserID": self.user_UserID,
         }
 
     @staticmethod
@@ -36,6 +36,6 @@ class UserChat(db.Model):
         """
         obj = UserChat(
             user_id=dto_dict.get("user_id"),
-            user_userid=dto_dict.get("user_userid")
+            user_UserID=dto_dict.get("user_UserID")
         )
         return obj
