@@ -1,9 +1,9 @@
-from my_project.auth.dao import client_type_dao
-from my_project.auth.service.general_service import GeneralService
+from t08_flask_mysql.app.my_project.auth.dao import library_dao
+from t08_flask_mysql.app.my_project.auth.service.general_service import GeneralService
 
 
-class ClientTypeService(GeneralService):
+class LibraryService(GeneralService):
     """
-    Realisation of ClientType service.
+    Realisation of Library service.
     """
-    _dao = client_type_dao
+    _dao = library_dao

@@ -4,24 +4,17 @@ from t08_flask_mysql.app.my_project.auth.dao.general_dao import GeneralDAO
 from t08_flask_mysql.app.my_project.auth.domain import Game
 
 
-class ClientDAO(GeneralDAO):
-    """
-    Realisation of Client data access layer.
-    """
-    _domain_type = Client
+class GameDAO(GeneralDAO):
+    _domain_type = Game
 
-    def find_by_name(self, name: str) -> List[object]:
-        """
-        Gets Client objects from database table by field name.
-        :param name: name value
-        :return: search objects
-        """
-        return self._session.query(Client).filter(Client.name == name).order_by(Client.name).all()
+    def find_by_title(self, title: str) -> List[object]:
+        return self._session.query(Game).filter(Game.title == title).order_by(Game.title).all()
 
-    def find_by_number(self, number: int) -> List[object]:
-        """
-        Gets Client objects from database table by field 'number'.
-        :param number: number value
-        :return: search objects
-        """
-        return self._session.query(Client).filter(Client.number == number).order_by(Client.number.desc()).all()
+    def find_by_release_date(self, release_date: str) -> List[object]:
+        return self._session.query(Game).filter(Game.release_date == release_date).order_by(Game.release_date).all()
+
+    def find_by_developer(self, developer: str) -> List[object]:
+        return self._session.query(Game).filter(Game.developer == developer).order_by(Game.developer).all()
+
+    def find_by_genre(self, genre: str) -> List[object]:
+        return self._session.query(Game).filter(Game.genre == genre).order_by(Game.genre).all()

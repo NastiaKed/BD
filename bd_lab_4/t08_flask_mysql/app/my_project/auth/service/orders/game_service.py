@@ -1,9 +1,9 @@
-from t08_flask_mysql.app.my_project.auth.dao import client_dao
+from t08_flask_mysql.app.my_project.auth.dao import game_dao
 from t08_flask_mysql.app.my_project.auth.service.general_service import GeneralService
 
 
-class ClientService(GeneralService):
+class GameService(GeneralService):
     """
-    Realisation of Client service.
+    Realisation of Game service.
     """
-    _dao = client_dao
+    _dao = game_dao

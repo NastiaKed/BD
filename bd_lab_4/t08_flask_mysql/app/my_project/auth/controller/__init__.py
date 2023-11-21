@@ -1,11 +1,11 @@
 from .orders.game_controller import GameController
 from .orders.library_controller import LibraryController
-from .orders.library_controller import MessageController
-from .orders.library_controller import ReviewController
-from .orders.library_controller import TransactionController
-from .orders.library_controller import UserChatController
-from .orders.library_controller import UserController
-from .orders.library_controller import UserFriendshipController
+from .orders.message_controller import MessageController
+from .orders.review_controller import ReviewController
+from .orders.transaction_controller import TransactionController
+from .orders.user_chat_controller import UserChatController
+from .orders.user_controller import UserController
+from .orders.user_friendship_controller import UserFriendshipController
 
 
 
