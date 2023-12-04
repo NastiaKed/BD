@@ -14,10 +14,3 @@ class UserChatDAO(GeneralDAO):
     def find_by_user_id(self, user_id: int) -> List[object]:
         return self._session.query(UserChat).filter(UserChat.user_id == user_id).all()
 
-    def insert_userChat(self, user_userid: int, user_id: int) -> None:
-        new_userChat = UserChat(
-            user_userid=user_userid,
-            user_id=user_id
-        )
-        self._session.add(new_userChat)
-        self._session.commit()

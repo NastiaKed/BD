@@ -15,12 +15,3 @@ class FavoriteGameDAO(GeneralDAO):
 
     def find_by_user_id(self, user_id: int) -> List[object]:
         return self._session.query(FavoriteGame).filter(FavoriteGame.user_id == user_id).order_by(FavoriteGame.user_id).all()
-
-    def insert_favoriteGame(self, game_id: int, game_name: str, user_id: int) -> None:
-        new_favoriteGame = FavoriteGame(
-            game_id=game_id,
-            game_name=game_name,
-            user_id=user_id
-        )
-        self._session.add(new_favoriteGame)
-        self._session.commit()

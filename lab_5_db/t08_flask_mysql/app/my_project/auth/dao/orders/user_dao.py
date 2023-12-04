@@ -16,11 +16,3 @@ class UserDAO(GeneralDAO):
     def find_by_email(self, email: str) -> List[object]:
         return self._session.query(User).filter(User.name == email).order_by(User.email).all()
 
-    def insert_user(self, first_name: str, last_name: str, email: str) -> None:
-        new_user = User(
-            first_name=first_name,
-            last_name=last_name,
-            email=email
-        )
-        self._session.add(new_user)
-        self._session.commit()

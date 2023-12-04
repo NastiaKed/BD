@@ -22,13 +22,3 @@ class LibraryDAO(GeneralDAO):
     def find_by_transaction_id(self, transaction_id: int) -> List[object]:
         return self._session.query(Library).filter(Library.transaction_id == transaction_id).order_by(Library.transaction_id).all()
 
-    def insert_library(self, purchase_date: str, playtime: str, user_userid: int, game_gameid: int, transaction_id: int) -> None:
-        new_library = Library(
-            purchase_date=purchase_date,
-            playtime=playtime,
-            user_userid=user_userid,
-            game_gameid=game_gameid,
-            transaction_id=transaction_id
-        )
-        self.session.add(new_library)
-        self.session.commit()

@@ -13,10 +13,20 @@ class TransactionDAO(GeneralDAO):
     def find_by_timestamp(self, timestamp: str) -> List[object]:
         return self._session.query(Transaction).filter(Transaction.timestamp == timestamp).all()
 
-    def insert_transaction(self, amount: int, timestamp: str) -> None:
-        new_transaction = Transaction(
-            amount=amount,
-            timestamp=timestamp
-        )
-        self._session.add(new_transaction)
-        self._session.commit()
+    def insert_transaction_with_conversion_rate(self, id: int, amount: int, conversion_rate: float):
+        try:
+            self._session.execute(
+                "CALL InsertIntoTransactionWithConversionRate(:id, :amount, :conversion_rate)",
+                {'id': id, 'amount': amount, 'conversion_rate': conversion_rate}
+            )
+            self._session.commit()
+        except Exception as e:
+            self._session.rollback()
+            raise e
+
+    def get_transaction_count(self) -> int:
+        try:
+            result = self._session.execute("SELECT GetTransactionCount()").scalar()
+            return result
+        except Exception as e:
+            raise e

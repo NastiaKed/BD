@@ -13,10 +13,20 @@ class UserFriendshipDAO(GeneralDAO):
     def find_by_user_2_id(self, user_2_id: int) -> List[object]:
         return self._session.query(UserFriendship).filter(UserFriendship.user_2_id == user_2_id).all()
 
-    def insert_userFriendship(self, user_id: int, user_2_id) -> None:
-        new_userFriendship = UserFriendship(
-            user_id=user_id,
-            user_2_id=user_2_id
-        )
-        self._session.add(new_userFriendship)
-        self._session.commit()
+    def insert_user_friendship(self, id: int, user_id: int, user_2_id: int):
+        try:
+            self._session.execute(
+                "CALL InsertIntoUserFriendship(:id, :user_id, :user_2_id)",
+                {'id': id, 'user_id': user_id, 'user_2_id': user_2_id}
+            )
+            self._session.commit()
+        except Exception as e:
+            self._session.rollback()
+            raise e
+
+    def get_user_friendship_count(self) -> int:
+        try:
+            result = self._session.execute("SELECT GetUserFriendshipCount()").scalar()
+            return result
+        except Exception as e:
+            raise e
