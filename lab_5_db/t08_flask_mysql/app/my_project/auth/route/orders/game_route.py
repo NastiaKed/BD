@@ -1,0 +1,90 @@
+from http import HTTPStatus
+
+from flask import Blueprint, jsonify, Response, request, make_response
+
+from t08_flask_mysql.app.my_project.auth.controller import game_controller
+from t08_flask_mysql.app.my_project.auth.domain import Game
+
+game_bp = Blueprint('games', __name__, url_prefix='/games')
+
+
+@game_bp.get('')
+def get_all_games() -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(game_controller.find_all()), HTTPStatus.OK)
+
+
+@game_bp.post('')
+def create_game() -> Response:
+    """
+    Creates a game from the provided data.
+    :return: Response object
+    """
+    content = request.get_json()
+    game = Game.create_from_dto(content)
+    game_controller.create(game)
+    return make_response(jsonify(game.put_into_dto()), HTTPStatus.CREATED)
+
+
+@game_bp.get('/<int:game_id>')
+def get_game(game_id: int) -> Response:
+    """
+    Gets game by ID.
+    :return: Response object
+    """
+    return make_response(jsonify(game_controller.find_by_id(game_id)), HTTPStatus.OK)
+
+
+@game_bp.put('/<int:game_id>')
+def update_game(game_id: int) -> Response:
+    """
+    Updates game by ID.
+    :return: Response object
+    """
+    content = request.get_json()
+    game = Game.create_from_dto(content)
+    game_controller.update(game_id, game)
+    return make_response("Game updated", HTTPStatus.OK)
+
+
+@game_bp.patch('/<int:game_id>')
+def patch_game(game_id: int) -> Response:
+    """
+    Patches game by ID.
+    :return: Response object
+    """
+    content = request.get_json()
+    game_controller.patch(game_id, content)
+    return make_response("Game updated", HTTPStatus.OK)
+
+
+@game_bp.delete('/<int:game_id>')
+def delete_game(game_id: int) -> Response:
+    """
+    Deletes game by ID.
+    :return: Response object
+    """
+    game_controller.delete(game_id)
+    return make_response("Game deleted", HTTPStatus.OK)
+
+
+@game_bp.post('')
+def create_game() -> Response:
+    """
+    Creates a game from the provided data.
+    :return: Response object
+    """
+    content = request.get_json()
+    title = content.get("title")
+    description = content.get("description")
+    release_date = content.get("release_date")
+    developer = content.get("developer")
+    publisher = content.get("publisher")
+    genre = content.get("genre")
+    price = content.get("price")
+
+    game_controller.insert_game(title, description, release_date, developer, publisher, genre, price)
+    return make_response(jsonify({"message": "Game inserted"}), HTTPStatus.CREATED)

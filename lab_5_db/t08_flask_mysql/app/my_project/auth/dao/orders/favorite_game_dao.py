@@ -1,0 +1,26 @@
+from typing import List
+
+from t08_flask_mysql.app.my_project.auth.dao.general_dao import GeneralDAO
+from t08_flask_mysql.app.my_project.auth.domain.orders.favorite_game import FavoriteGame
+
+
+class FavoriteGameDAO(GeneralDAO):
+    _domain_type = FavoriteGame
+
+    def find_by_game_id(self, game_id: int) -> List[object]:
+        return self._session.query(FavoriteGame).filter(FavoriteGame.game_id == game_id).order_by(FavoriteGame.game_id).all()
+
+    def find_by_game_name(self, game_name: str) -> List[object]:
+        return self._session.query(FavoriteGame).filter(FavoriteGame.game_name == game_name).order_by(FavoriteGame.game_name).all()
+
+    def find_by_user_id(self, user_id: int) -> List[object]:
+        return self._session.query(FavoriteGame).filter(FavoriteGame.user_id == user_id).order_by(FavoriteGame.user_id).all()
+
+    def insert_favoriteGame(self, game_id: int, game_name: str, user_id: int) -> None:
+        new_favoriteGame = FavoriteGame(
+            game_id=game_id,
+            game_name=game_name,
+            user_id=user_id
+        )
+        self._session.add(new_favoriteGame)
+        self._session.commit()
