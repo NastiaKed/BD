@@ -2,6 +2,16 @@ pylint
 PyYAML~=6.0.1
 jsonschema
 
+
 setuptools~=65.5.0
 SQLAlchemy~=2.0.23
 flask~=3.0.0
+
+flask
+waitress
+flask-sqlalchemy
+mysqlclient
+sqlalchemy-utils
+jinja2
+jsonify
+flask-restx

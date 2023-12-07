@@ -8,15 +8,6 @@ from t08_flask_mysql.app.my_project.auth.domain import User
 user_bp = Blueprint('users', __name__, url_prefix='/users')
 
 
-@user_bp.get('')
-def get_all_users() -> Response:
-    """
-    Gets all objects from table using Service layer.
-    :return: Response object
-    """
-    return make_response(jsonify(user_controller.find_all()), HTTPStatus.OK)
-
-
 @user_bp.post('')
 def create_user() -> Response:
     """
@@ -69,3 +60,12 @@ def delete_user(user_id: int) -> Response:
     """
     user_controller.delete(user_id)
     return make_response("User deleted", HTTPStatus.OK)
+
+
+@user_bp.get('')
+def get_all_users() -> Response:
+    """
+    Gets all objects from table using Service layer.
+    :return: Response object
+    """
+    return make_response(jsonify(user_controller.find_all()), HTTPStatus.OK)

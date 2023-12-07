@@ -1,5 +1,7 @@
 from typing import List
 
+from sqlalchemy import text
+
 from t08_flask_mysql.app.my_project.auth.dao.general_dao import GeneralDAO
 from t08_flask_mysql.app.my_project.auth.domain import Library
 
@@ -22,3 +24,11 @@ class LibraryDAO(GeneralDAO):
     def find_by_transaction_id(self, transaction_id: int) -> List[object]:
         return self._session.query(Library).filter(Library.transaction_id == transaction_id).order_by(Library.transaction_id).all()
 
+    def insert_table_creation(self):
+        try:
+            self._session.execute(text("CALL DynamicTableCreationAndDataCopy()"))
+            self._session.commit()
+            return "Insert successful"
+        except Exception as e:
+            self._session.rollback()
+            return f"Error: {str(e)}"

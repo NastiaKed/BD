@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import text
 
 from t08_flask_mysql.app.my_project.auth.dao.general_dao import GeneralDAO
 from t08_flask_mysql.app.my_project.auth.domain.orders.favorite_game import FavoriteGame
@@ -15,3 +16,4 @@ class FavoriteGameDAO(GeneralDAO):
 
     def find_by_user_id(self, user_id: int) -> List[object]:
         return self._session.query(FavoriteGame).filter(FavoriteGame.user_id == user_id).order_by(FavoriteGame.user_id).all()
+

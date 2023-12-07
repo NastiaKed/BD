@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import text
 
 from t08_flask_mysql.app.my_project.auth.dao.general_dao import GeneralDAO
 from t08_flask_mysql.app.my_project.auth.domain import Transaction
@@ -30,3 +31,13 @@ class TransactionDAO(GeneralDAO):
             return result
         except Exception as e:
             raise e
+
+    def insert_transaction(self, id: int, amount: int):
+        try:
+            self._session.execute(text("INSERT INTO transaction (id, amount) VALUES (:id, :amount)"),
+                                  {"id": id, "amount": amount})
+            self._session.commit()
+            return "Insert successful"
+        except Exception as e:
+            self._session.rollback()
+            return f"Error: {str(e)}"

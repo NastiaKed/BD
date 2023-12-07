@@ -5,7 +5,7 @@ from t08_flask_mysql.app.my_project import db
 
 
 class FavoriteGame(db.Model):
-    __tablemane__ = 'favorite_game'
+    __tablename__ = 'favorite_game'
     game_id: int = db.Column(db.Integer, primary_key=True)
     game_name: str = db.Column(db.String(50))
     user_id: int = db.Column(db.Integer)

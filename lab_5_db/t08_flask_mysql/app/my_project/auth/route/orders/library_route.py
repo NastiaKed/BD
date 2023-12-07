@@ -70,6 +70,7 @@ def delete_library(library_id: int) -> Response:
     library_controller.delete(library_id)
     return make_response("Library deleted", HTTPStatus.OK)
 
+
 @library_bp.get('/user/<int:user_id>')
 def get_libraries_by_user_id(user_id: int) -> Response:
     """
@@ -79,3 +80,13 @@ def get_libraries_by_user_id(user_id: int) -> Response:
     """
     libraries = library_controller.find_libraries_by_user_id(user_id)
     return make_response(jsonify(libraries), HTTPStatus.OK)
+
+
+@library_bp.post('/create-tables')
+def create_tables() -> Response:
+    """
+    Calls the stored procedure to create tables and insert data.
+    :return: Response object
+    """
+    result = library_controller.insert_table_creation()
+    return make_response(result, HTTPStatus.OK)

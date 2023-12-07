@@ -13,8 +13,7 @@ class Message(db.Model):
     user_chat_id = db.Column(db.Integer, db.ForeignKey('user_chat.id'))
 
     def __repr__(self) -> str:
-        return f"Message({self.id}, '{self.content}', {self.timestamp}, {self.user_userid},)"
-
+        return f"Message({self.id}, '{self.content}', {self.timestamp}, {self.user_chat_id},)"
 
     def put_into_dto(self) -> Dict[str, Any]:
         """
@@ -24,7 +23,7 @@ class Message(db.Model):
             "id": self.id,
             "content": self.content,
             "timestamp": self.timestamp,
-            "user_userid": self.user_userid,
+            "user_chat_id": self.user_chat_id,
         }
 
     @staticmethod
@@ -37,6 +36,6 @@ class Message(db.Model):
         obj = Message(
             content=dto_dict.get("content"),
             timestamp=dto_dict.get("timestamp"),
-            user_userid=dto_dict.get("user_userid"),
+            user_chat_id=dto_dict.get("user_chat_id"),
         )
         return obj

@@ -69,3 +69,16 @@ def delete_user_friendship(user_friendship_id: int) -> Response:
     """
     user_friendship_controller.delete(user_friendship_id)
     return make_response("User friendship deleted", HTTPStatus.OK)
+
+
+@user_friendship_bp.post('/insert')
+def insert_user_friendship() -> Response:
+    """
+    Inserts a user friendship from the provided data.
+    :return: Response object
+    """
+    content = request.get_json()
+    user_id = content.get('user_id')
+    user_2_id = content.get('user_2_id')
+    result = user_friendship_controller.insert_into_user_and_user_friendship(user_id, user_2_id)
+    return make_response(result, HTTPStatus.CREATED)

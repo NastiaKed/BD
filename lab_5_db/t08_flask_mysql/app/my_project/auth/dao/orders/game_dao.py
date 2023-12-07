@@ -1,4 +1,5 @@
 from typing import List
+from sqlalchemy import text
 
 from t08_flask_mysql.app.my_project.auth.dao.general_dao import GeneralDAO
 from t08_flask_mysql.app.my_project.auth.domain import Game
@@ -19,22 +20,24 @@ class GameDAO(GeneralDAO):
     def find_by_genre(self, genre: str) -> List[object]:
         return self._session.query(Game).filter(Game.genre == genre).order_by(Game.genre).all()
 
-    def insert_game(self, id: int, title: str, description: str, release_date: str, developer: str,
-                    publisher: str, genre: str, price: int):
+    def insert_game(self, title, description, release_date, developer, publisher, genre, price):
+
+
         try:
-            self._session.execute(
-                "CALL InsertIntoGame(:id, :title, :description, :release_date, :developer, :publisher, :genre, :price)",
-                {'id': id, 'title': title, 'description': description, 'release_date': release_date,
-                 'developer': developer, 'publisher': publisher, 'genre': genre, 'price': price}
-            )
+            self._session.execute(text(
+                f"CALL InsertRandomIntoGame('{title}', '{description}', '{release_date}', '{developer}', '{publisher}',' {genre}', {price})",
+            ))
             self._session.commit()
+            return "Insert successful"
         except Exception as e:
             self._session.rollback()
-            raise e
+            return f"Error: {str(e)}"
 
-    def get_game_count(self) -> int:
+    def get_game_count(self):
         try:
-            result = self._session.execute("SELECT GetGameCount()").scalar()
+            result = self._session.execute(text("SELECT GetGameCount()")).scalar()
             return result
         except Exception as e:
-            raise e
+            self._session.rollback()
+            return f"Error: {str(e)}"
+

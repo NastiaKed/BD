@@ -7,3 +7,7 @@ class ReviewController(GeneralController):
     Realisation of ClientType controller.
     """
     _service = review_service
+
+    def insert_into_review(self, user_userid: int, game_gameid: int, rating: int):
+        result = self._service.insert_game(user_userid, game_gameid, rating)
+        return result

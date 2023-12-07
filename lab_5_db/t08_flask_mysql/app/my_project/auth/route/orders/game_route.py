@@ -71,8 +71,8 @@ def delete_game(game_id: int) -> Response:
     return make_response("Game deleted", HTTPStatus.OK)
 
 
-@game_bp.post('')
-def create_game() -> Response:
+@game_bp.post('/create-parametrized')
+def create_game_from_params() -> Response:
     """
     Creates a game from the provided data.
     :return: Response object
@@ -86,5 +86,16 @@ def create_game() -> Response:
     genre = content.get("genre")
     price = content.get("price")
 
-    game_controller.insert_game(title, description, release_date, developer, publisher, genre, price)
-    return make_response(jsonify({"message": "Game inserted"}), HTTPStatus.CREATED)
+    result = game_controller.insert_game(title, description, release_date, developer, publisher, genre, price)
+    return make_response(jsonify(result), HTTPStatus.CREATED)
+
+
+@game_bp.get('/game-count')
+def get_game_count() -> Response:
+    """
+    Gets the count of games in the database.
+    :return: Response object
+    """
+    count = game_controller.get_game_count()
+    return make_response(jsonify({"game_count": count}), HTTPStatus.OK)
+

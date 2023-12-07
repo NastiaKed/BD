@@ -69,3 +69,18 @@ def delete_transaction(transaction_id: int) -> Response:
     """
     transaction_controller.delete(transaction_id)
     return make_response("Transaction deleted", HTTPStatus.OK)
+
+
+@transaction_bp.post('/conversion')
+def create_transaction_with_conversion() -> Response:
+    """
+    Creates a transaction with a conversion rate from the provided data.
+    :return: Response object
+    """
+    content = request.get_json()
+    id = content.get('id')
+    amount = content.get('amount')
+    conversion_rate = content.get('conversion_rate')
+    transaction_controller.insert_transaction_with_conversion_rate(id, amount, conversion_rate)
+    return make_response("Transaction with conversion rate created", HTTPStatus.CREATED)
+

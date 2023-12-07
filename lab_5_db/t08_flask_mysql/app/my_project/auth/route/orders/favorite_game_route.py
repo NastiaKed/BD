@@ -69,16 +69,3 @@ def delete_favorite_game(favorite_game_id: int) -> Response:
     return make_response("Favorite game deleted", HTTPStatus.OK)
 
 
-@favorite_game_bp.post('')
-def create_favorite_game() -> Response:
-    """
-    Creates a favorite game from the provided data.
-    :return: Response object
-    """
-    content = request.get_json()
-    user_id = content.get("user_id")
-    game_id = content.get("game_id")
-    rating = content.get("rating")
-
-    favorite_game_controller.insert_favorite_game(user_id, game_id, rating)
-    return make_response(jsonify({"message": "Favorite game inserted"}), HTTPStatus.CREATED)

@@ -14,6 +14,7 @@ def register_routes(app: Flask) -> None:
     from .orders.transaction_route import transaction_bp
     from .orders.user_chat_route import user_chat_bp
     from .orders.user_friendship_route import user_friendship_bp
+    from .orders.favorite_game_route import favorite_game_bp
 
     app.register_blueprint(user_bp)
     app.register_blueprint(library_bp)
@@ -23,3 +24,4 @@ def register_routes(app: Flask) -> None:
     app.register_blueprint(transaction_bp)
     app.register_blueprint(user_chat_bp)
     app.register_blueprint(user_friendship_bp)
+    app.register_blueprint(favorite_game_bp)

@@ -7,3 +7,4 @@ class FavoriteGameController(GeneralController):
     Realisation of Favorite Game controller.
     """
     _service = favorite_game_service
+
